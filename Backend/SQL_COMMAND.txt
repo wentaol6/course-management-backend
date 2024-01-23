@@ -1,0 +1,102 @@
+CREATE DATABASE course;
+USE course;
+
+CREATE TABLE Users (
+    user_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    PRIMARY KEY (user_id)
+);
+
+CREATE TABLE Courses (
+    course_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255) NOT NULL,
+    PRIMARY KEY (course_id)
+);
+
+CREATE TABLE enrolments (
+    enrolment_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user_id MEDIUMINT NOT NULL,
+    course_id MEDIUMINT NOT NULL,
+    status ENUM('in progress', 'completed') NOT NULL,
+    PRIMARY KEY (enrolment_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+
+
+INSERT INTO Users (first_name, surname) VALUES ('John', 'Doe');
+INSERT INTO Users (first_name, surname) VALUES ('Jane', 'Smith');
+INSERT INTO Users (first_name, surname) VALUES ('Alice', 'Johnson');
+INSERT INTO Users (first_name, surname) VALUES ('Bob', 'Brown');
+INSERT INTO Users (first_name, surname) VALUES ('Michael', 'Clark');
+INSERT INTO Users (first_name, surname) VALUES ('Mary', 'Lewis');
+INSERT INTO Users (first_name, surname) VALUES ('David', 'White');
+INSERT INTO Users (first_name, surname) VALUES ('Sarah', 'Hall');
+INSERT INTO Users (first_name, surname) VALUES ('James', 'Allen');
+INSERT INTO Users (first_name, surname) VALUES ('Patricia', 'Young');
+INSERT INTO Users (first_name, surname) VALUES ('Robert', 'Hernandez');
+INSERT INTO Users (first_name, surname) VALUES ('Linda', 'King');
+INSERT INTO Users (first_name, surname) VALUES ('William', 'Wright');
+INSERT INTO Users (first_name, surname) VALUES ('Barbara', 'Scott');
+INSERT INTO Users (first_name, surname) VALUES ('Richard', 'Green');
+INSERT INTO Users (first_name, surname) VALUES ('Susan', 'Adams');
+INSERT INTO Users (first_name, surname) VALUES ('Joseph', 'Baker');
+INSERT INTO Users (first_name, surname) VALUES ('Jessica', 'Gonzalez');
+INSERT INTO Users (first_name, surname) VALUES ('Thomas', 'Nelson');
+INSERT INTO Users (first_name, surname) VALUES ('Karen', 'Carter');
+
+
+INSERT INTO Courses (description) VALUES ('Introduction to Computer Science');
+INSERT INTO Courses (description) VALUES ('Advanced Mathematics');
+INSERT INTO Courses (description) VALUES ('World History');
+INSERT INTO Courses (description) VALUES ('Physics 101');
+INSERT INTO Courses (description) VALUES ('Chemistry Basics');
+INSERT INTO Courses (description) VALUES ('Literature and Composition');
+INSERT INTO Courses (description) VALUES ('Biology Fundamentals');
+INSERT INTO Courses (description) VALUES ('Principles of Economics');
+INSERT INTO Courses (description) VALUES ('Software Engineering');
+INSERT INTO Courses (description) VALUES ('Political Science');
+INSERT INTO Courses (description) VALUES ('Art History');
+INSERT INTO Courses (description) VALUES ('Basic Engineering');
+INSERT INTO Courses (description) VALUES ('Statistics');
+INSERT INTO Courses (description) VALUES ('Philosophy');
+INSERT INTO Courses (description) VALUES ('Environmental Science');
+INSERT INTO Courses (description) VALUES ('Sociology');
+INSERT INTO Courses (description) VALUES ('Psychology');
+INSERT INTO Courses (description) VALUES ('Graphic Design');
+INSERT INTO Courses (description) VALUES ('Music Theory');
+INSERT INTO Courses (description) VALUES ('Physical Education');
+
+
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (1, 1, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (1, 2, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (1, 3, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (2, 1, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (2, 4, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (2, 5, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (3, 2, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (3, 3, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (3, 6, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (4, 2, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (4, 5, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (4, 7, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (5, 1, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (5, 3, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (5, 8, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (6, 4, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (6, 6, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (6, 9, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (7, 5, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (7, 7, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (7, 10, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (8, 1, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (8, 3, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (8, 11, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (9, 2, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (9, 4, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (9, 12, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (10, 5, 'in progress');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (10, 6, 'completed');
+INSERT INTO Enrolments (user_id, course_id, status) VALUES (10, 13, 'in progress');
+
