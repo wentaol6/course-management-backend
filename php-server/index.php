@@ -18,26 +18,40 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// invoke different file for different api
-echo "Requested Path: " . $path . "\n";
-switch ($path) {
-    case '/php-server/api/users':
-        echo "users api \n";
-        require 'api/users.php';
-        break;
-    case '/php-server/api/courses':
-        require 'api/courses.php';
-        break;
-    case '/php-server/api/enrolments':
-        require 'api/enrolments.php';
-        break;
-    case '/php-server/api/reports':
-        require 'api/reports.php';
-        break;
-    default:
-        http_response_code(404);
-        echo json_encode(["message" => "Not Found"]);
-        break;
+// 创建ReqMsg实例
+require_once 'ReqMsg.php';
+$reqMsg = new ReqMsg();
+
+// Debug:查看消息体
+$path = $reqMsg->getPath();
+$method = $reqMsg->getMethod();
+$getId = $reqMsg->getGetId();
+$body = $reqMsg->getBody();
+$jsonBody = json_encode($body);
+echo "Requested path: " . $path . "\n";
+echo "Requested method: " . $method . "\n";
+echo "Requested getId: " . $getId . "\n";
+var_dump($reqMsg->getBody());
+
+
+// new logic
+
+require_once 'crud/CRUDFactory.php';
+require_once 'ReportApiHandler.php';
+echo "Requested REQUEST_URI: " . $path . "\n";
+if (preg_match('/^\/php-server\/(users|courses|enrolments)\/?$/', $path, $matches)) {
+    try {
+        echo "try try tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n";
+        $crudHandler = CRUDFactory::createCRUD($reqMsg, $conn);
+        $crudHandler->handleRequest($reqMsg);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    
+} else {
+    // TODO implement report api
+    $reportApiHandler = new ReportApiHandler($reqMsg, $conn);
+    $reportApiHandler->handleRequest();
 }
 
 $conn->close();
