@@ -1,15 +1,18 @@
 <?php
 
 // CRUD Template
+
 abstract class CRUDTemplate {
+    protected $reqMsg;
     protected $conn;
 
-    public function __construct($conn) {
+    public function __construct($reqMsg, $conn) {
+        $this->reqMsg = $reqMsg;
         $this->conn = $conn;
     }
 
-    public function handleRequest($method) {
-        switch ($method) {
+    public function handleRequest($reqMsg) {
+        switch ($reqMsg->getMethod()) {
             case 'GET':
                 $this->read();
                 break;
