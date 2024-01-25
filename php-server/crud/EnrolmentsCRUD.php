@@ -25,7 +25,7 @@ class EnrolmentsCRUD extends CRUDTemplate {
 
     protected function read() {
         // read enrolment
-        if ($this->reqMsg->getGetId() === 'all') {
+        if ($this->reqMsg->getParam() === 'all') {
             $sql = "SELECT * FROM Enrolments";
             $result = $this->conn->query($sql);
             $enrolments = [];
@@ -37,7 +37,7 @@ class EnrolmentsCRUD extends CRUDTemplate {
             header('Content-Type: application/json');
             echo json_encode($enrolments);
         } else {
-            $enrolmentId = $this->reqMsg->getGetId();
+            $enrolmentId = $this->reqMsg->getParam();
             $stmt = $this->conn->prepare("SELECT * FROM Enrolments WHERE enrolment_id = ?");
             $stmt->bind_param("i", $enrolmentId);
             $stmt->execute();

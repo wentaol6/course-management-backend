@@ -18,14 +18,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// 创建ReqMsg实例
+// create ReqMsg instance
 require_once 'ReqMsg.php';
 $reqMsg = new ReqMsg();
 
 // Debug:查看消息体
 $path = $reqMsg->getPath();
 $method = $reqMsg->getMethod();
-$getId = $reqMsg->getGetId();
+$getId = $reqMsg->getParam();
 $body = $reqMsg->getBody();
 $jsonBody = json_encode($body);
 echo "Requested path: " . $path . "\n";

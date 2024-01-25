@@ -2,43 +2,43 @@
 class ReqMsg {
     private $path;
     private $method;
-    private $getId;
+    private $param;
     private $body;
 
     public function __construct() {
-        // 获取请求的URL路径
+        // decode url
         $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        // 获取请求方法
+        // decode method
         $this->method = $_SERVER['REQUEST_METHOD'];
 
-        // 根据请求方法处理数据
-        if ($this->method === 'GET') {
-            $this->handleGetRequest();
-        } elseif (in_array($this->method, ['POST', 'PUT', 'DELETE'])) {
+        // decode message based on method
+        if ($this->method === 'GET'|| $this->method === 'DELETE') {
+            $this->handleParamRequest();
+        } elseif ($this->method === 'POST'|| $this->method === 'PUT') {
             $this->handleBodyRequest();
         }
     }
 
-    private function handleGetRequest() {
-        // 解析GET请求的查询参数
+    private function handleParamRequest() {
+        // decode parameters
         $queryString = $_SERVER['QUERY_STRING'];
-        parse_str($queryString, $queryParams);
-        $this->getId = $queryParams['get_id'] ?? null;
+        parse_str($queryString, $this->param);
+        print_r($this->param);
     }
 
     private function handleBodyRequest() {
-        // 获取并解析请求体
+        // decode request body
         $requestBody = file_get_contents("php://input");
         $this->body = json_decode($requestBody, true);
 
-        // 如果JSON解析失败，设置body为空数组
+        // handle failure
         if (!is_array($this->body)) {
             $this->body = [];
         }
     }
 
-    // 公共方法以获取成员变量值
+    // getters
     public function getPath() {
         return $this->path;
     }
@@ -47,8 +47,8 @@ class ReqMsg {
         return $this->method;
     }
 
-    public function getGetId() {
-        return $this->getId;
+    public function getParam() {
+        return $this->param;
     }
 
     public function getBody() {

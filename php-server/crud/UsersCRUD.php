@@ -15,7 +15,7 @@ class UsersCRUD extends CRUDTemplate {
 
     protected function read() {
         // read user
-        if ($this->reqMsg->getGetId() === 'all') {
+        if ($this->reqMsg->getParam() === 'all') {
             $sql = "SELECT * FROM Users";
             $result = $this->conn->query($sql);
             $users = [];
@@ -27,7 +27,7 @@ class UsersCRUD extends CRUDTemplate {
             header('Content-Type: application/json');
             echo json_encode($users);
         } else {
-            $userId = $this->reqMsg->getGetId();
+            $userId = $this->reqMsg->getParam();
             $stmt = $this->conn->prepare("SELECT * FROM Users WHERE user_id = ?");
             $stmt->bind_param("i", $userId);
             $stmt->execute();
