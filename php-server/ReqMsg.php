@@ -12,46 +12,42 @@ class ReqMsg {
         // decode method
         $this->method = $_SERVER['REQUEST_METHOD'];
 
-        // decode message based on method
-        if ($this->method === 'GET'|| $this->method === 'DELETE') {
-            $this->handleParamRequest();
-        } elseif ($this->method === 'POST'|| $this->method === 'PUT') {
-            $this->handleBodyRequest();
+        // decode parameters       
+        parse_str($_SERVER['QUERY_STRING'], $this->param);
+
+        // decode body
+        if ($this->method === 'POST'|| $this->method === 'PUT') {
+            $this->DecodeBody();
         }
     }
 
-    private function handleParamRequest() {
-        // decode parameters
-        $queryString = $_SERVER['QUERY_STRING'];
-        parse_str($queryString, $this->param);
-        print_r($this->param);
-    }
-
-    private function handleBodyRequest() {
+    private function DecodeBody() {
         // decode request body
         $requestBody = file_get_contents("php://input");
         $this->body = json_decode($requestBody, true);
-
-        // handle failure
-        if (!is_array($this->body)) {
-            $this->body = [];
+        if ($this->body === null) {
+            // decode failure
+            http_response_code(400); 
+            echo json_encode(array("message" => "Invalid JSON data"));
+            exit;
         }
+
     }
 
     // getters
-    public function getPath() {
+    public function GetPath() {
         return $this->path;
     }
 
-    public function getMethod() {
+    public function GetMethod() {
         return $this->method;
     }
 
-    public function getParam() {
+    public function GetParam() {
         return $this->param;
     }
 
-    public function getBody() {
+    public function GetBody() {
         return $this->body;
     }
 }
