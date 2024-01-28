@@ -15,7 +15,7 @@ class DisplayReqHandler implements IRequestHandler {
 
         $conn = DatabaseManager::GetInstance()->GetConnection();
         $stmt = $conn->query("
-            SELECT enrolments.enrolment_id, Users.first_name, Users.surname, Courses.description
+            SELECT enrolments.enrolment_id, Users.first_name, Users.surname, Courses.description, enrolments.status
             FROM enrolments
             INNER JOIN Users ON enrolments.user_id = Users.user_id
             INNER JOIN Courses ON enrolments.course_id = Courses.course_id
@@ -51,6 +51,7 @@ class DisplayReqHandler implements IRequestHandler {
             default:
                 break;
         }
+        $condition .= " order by enrolment_id";
         return $condition;
     }
 }
