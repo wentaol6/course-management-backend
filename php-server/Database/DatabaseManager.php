@@ -7,6 +7,7 @@ class DatabaseManager {
         $this->Connect();
     }
 
+    // DatabaseManger is a singleton class
     public static function GetInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -33,6 +34,7 @@ class DatabaseManager {
     }
 
 
+    // close the connection in a deconstructor
     public function __destruct() {
         if ($this->connection !== null) {
             $this->connection->close();

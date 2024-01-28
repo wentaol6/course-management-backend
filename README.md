@@ -1,4 +1,31 @@
 # course_management
+## Local setup
+
+### on Windows
+
+1. Download, install, and setup environment for MySQL
+2. Execute all the command in course_database_setup.sql on the SQL server
+3. Configure database connection information in php-server/Database/config.php
+4. Download and install XAMPP from https://www.apachefriends.org/
+5. Copy folder "php-server" to /XAMPP/htdocs
+6. Start Apache on XAMPP
+
+### on Linux
+
+To be updated...
+
+
+
+## Module design
+
+![Alt Text](./module-design.png)
+
+When receiving a request message, Router will generate the corresponding RequestHandler based on the path of the request message, and then call the handler's HandleRequest method to process the business.
+
+DisplayReqHandler provides services for querying Enrolments records by user ID, course ID, or querying all records.
+
+ManageReqHandler provides CRUD services for users, courses and enrolments.
+
 ## Apis
 
 ### GET /php-server/management?searchKey=user_id&searchValue=1&table=users

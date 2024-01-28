@@ -9,6 +9,7 @@ class Router {
         $this->Init();
     }
 
+    // return the instance of the singleton class
     public static function GetInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -27,6 +28,7 @@ class Router {
         $this->routes[$path] = $handlerClass;
     }
 
+    // GET the corresponding RequestHandler and handle message
     public function Route(ReqMsg $reqMsg) {
         if (isset($this->routes[$reqMsg->getPath()])) {
             $handlerClass = $this->routes[$reqMsg->getPath()];

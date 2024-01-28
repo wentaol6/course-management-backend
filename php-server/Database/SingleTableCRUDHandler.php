@@ -1,7 +1,13 @@
 <?php
 require_once 'DatabaseManager.php';
+
+/*
+   This class interacts with the database and handles all the addition,
+   deletion, modification and query operations of a single table.
+*/
 class SingleTableCRUDHandler {
 
+    // Read data from the table
     static function Read($table, $searchKey, $searchValue) {
         $conn = DatabaseManager::GetInstance()->GetConnection();
         if ($searchValue === 'all') {
@@ -37,6 +43,7 @@ class SingleTableCRUDHandler {
         echo json_encode($records);
     }
 
+    // insert data to the table
     static function Create($table, array $entityAttributes) {
         $conn = DatabaseManager::GetInstance()->GetConnection();
     
@@ -74,6 +81,7 @@ class SingleTableCRUDHandler {
     }
     
 
+    // Update data in table
     static function Update($table, $searchKey, $searchValue, array $entityAttributes) {
         $conn = DatabaseManager::GetInstance()->GetConnection();
     
@@ -128,6 +136,7 @@ class SingleTableCRUDHandler {
     }
     
 
+    // Delete data in table
     static function Delete($table, $searchKey, $searchValue) {
         $conn = DatabaseManager::GetInstance()->GetConnection();
         $stmt = $conn->prepare("DELETE FROM {$table} WHERE {$searchKey} = ?");

@@ -18,20 +18,22 @@ class ReqMsg {
         // decode body
         if ($this->method === 'POST'|| $this->method === 'PUT') {
             $this->DecodeBody();
+            
         }
+        
     }
 
     private function DecodeBody() {
         // decode request body
         $requestBody = file_get_contents("php://input");
         $this->body = json_decode($requestBody, true);
+
         if ($this->body === null) {
             // decode failure
             http_response_code(400); 
             echo json_encode(array("message" => "Invalid JSON data"));
             exit;
         }
-
     }
 
     // getters

@@ -1,4 +1,3 @@
-
 CREATE DATABASE course;
 USE course;
 

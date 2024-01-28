@@ -9,7 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require_once 'Router.php';
 require_once 'ReqMsg.php';
 
+// Decode all the infomation into ReqMsg
 $reqMsg = new ReqMsg();
+
+// generate the corresponding RequestHandler
 Router::getInstance()->Route($reqMsg);
 
 

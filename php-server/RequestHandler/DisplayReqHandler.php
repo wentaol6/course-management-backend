@@ -14,6 +14,7 @@ class DisplayReqHandler implements IRequestHandler {
         }
 
         $conn = DatabaseManager::GetInstance()->GetConnection();
+        // use joint to display attribute names
         $stmt = $conn->query("
             SELECT enrolments.enrolment_id, Users.first_name, Users.surname, Courses.description, enrolments.status
             FROM enrolments
@@ -39,6 +40,7 @@ class DisplayReqHandler implements IRequestHandler {
         echo json_encode($records);
     }
 
+    // add query conditon to the command based on the request parameters
     private function GetQueryCondition($params) {
         $condition = "";
         switch ($params['query_condition']) {
